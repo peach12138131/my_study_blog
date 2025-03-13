@@ -1,0 +1,188 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Agent - Tag - TAO Study Notes</title>
+        <link>//localhost:1313/tags/agent/</link>
+        <description>Agent - Tag - TAO Study Notes</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 13 Mar 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="//localhost:1313/tags/agent/" rel="self" type="application/rss+xml" /><item>
+    <title>OpenManus 如何添加工具</title>
+    <link>//localhost:1313/agent_research_addtool/</link>
+    <pubDate>Thu, 13 Mar 2025 00:00:00 &#43;0000</pubDate>
+    <author>openmanus</author>
+    <guid>//localhost:1313/agent_research_addtool/</guid>
+    <description><![CDATA[<h1 id="openmanus-工具添加指南">OpenManus 工具添加指南</h1>
+<p>本指南将详细介绍如何为 OpenManus 智能体添加新工具。我们将以添加一个简单的计算器工具为例，展示整个流程。</p>
+<h2 id="工具添加流程概述">工具添加流程概述</h2>
+<p>添加一个新工具到 OpenManus 智能体需要完成以下三个主要步骤：</p>
+<ol>
+<li><strong>创建工具类文件</strong>：在 <code>./app/tool/</code> 目录下创建工具的实现文件</li>
+<li><strong>注册工具到智能体</strong>：在 <code>./app/agent/manus.py</code> 中导入并添加工具</li>
+<li><strong>更新提示词</strong>：在 <code>./app/prompt/manus.py</code> 中更新提示词，添加工具的描述</li>
+</ol>
+<p>下面我们将详细介绍每个步骤。</p>
+<h2 id="步骤-1创建工具类文件">步骤 1：创建工具类文件</h2>
+<p>首先，我们需要在 <code>./app/tool/</code> 目录下创建一个新的 Python 文件来实现我们的工具。以计算器工具为例，我们创建 <code>calculator.py</code>。</p>
+<h3 id="calculatorpy-的结构">calculator.py 的结构</h3>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">app.tool.base</span> <span class="kn">import</span> <span class="n">BaseTool</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Calculator</span><span class="p">(</span><span class="n">BaseTool</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&#34;calculator&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;Perform basic mathematical operations including addition, subtraction, multiplication, and division.
+</span></span></span><span class="line"><span class="cl"><span class="s2">                 Use this tool when you need to perform numerical calculations. The tool accepts two numeric values and an operation, and returns the calculation result.&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;object&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;first_number&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;number&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;(required) 第一个数值操作数。&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;second_number&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;number&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;(required) 第二个数值操作数。&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;operation&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;(required) 要执行的数学运算。&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;enum&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;add&#34;</span><span class="p">,</span> <span class="s2">&#34;subtract&#34;</span><span class="p">,</span> <span class="s2">&#34;multiply&#34;</span><span class="p">,</span> <span class="s2">&#34;divide&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;required&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;first_number&#34;</span><span class="p">,</span> <span class="s2">&#34;second_number&#34;</span><span class="p">,</span> <span class="s2">&#34;operation&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">async</span> <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">first_number</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">second_number</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">operation</span><span class="p">:</span> <span class="nb">str</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        执行基本的数学计算操作。
+</span></span></span><span class="line"><span class="cl"><span class="s2">        
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Args:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            first_number (Union[int, float]): 第一个数值操作数。
+</span></span></span><span class="line"><span class="cl"><span class="s2">            second_number (Union[int, float]): 第二个数值操作数。
+</span></span></span><span class="line"><span class="cl"><span class="s2">            operation (str): 要执行的数学运算，可以是 &#34;add&#34;、&#34;subtract&#34;、&#34;multiply&#34; 或 &#34;divide&#34;。
+</span></span></span><span class="line"><span class="cl"><span class="s2">        
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            Dict[str, Any]: 包含计算结果和运算说明的字典。
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&#34;add&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result</span> <span class="o">=</span> <span class="n">first_number</span> <span class="o">+</span> <span class="n">second_number</span>
+</span></span><span class="line"><span class="cl">                <span class="n">expression</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">first_number</span><span class="si">}</span><span class="s2"> + </span><span class="si">{</span><span class="n">second_number</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&#34;subtract&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result</span> <span class="o">=</span> <span class="n">first_number</span> <span class="o">-</span> <span class="n">second_number</span>
+</span></span><span class="line"><span class="cl">                <span class="n">expression</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">first_number</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">second_number</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&#34;multiply&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result</span> <span class="o">=</span> <span class="n">first_number</span> <span class="o">*</span> <span class="n">second_number</span>
+</span></span><span class="line"><span class="cl">                <span class="n">expression</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">first_number</span><span class="si">}</span><span class="s2"> × </span><span class="si">{</span><span class="n">second_number</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&#34;divide&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">second_number</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&#34;除数不能为零&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result</span> <span class="o">=</span> <span class="n">first_number</span> <span class="o">/</span> <span class="n">second_number</span>
+</span></span><span class="line"><span class="cl">                <span class="n">expression</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">first_number</span><span class="si">}</span><span class="s2"> ÷ </span><span class="si">{</span><span class="n">second_number</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;不支持的操作: </span><span class="si">{</span><span class="n">operation</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;result&#34;</span><span class="p">:</span> <span class="n">result</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;expression&#34;</span><span class="p">:</span> <span class="n">expression</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;operation&#34;</span><span class="p">:</span> <span class="n">operation</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;first_number&#34;</span><span class="p">:</span> <span class="n">first_number</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;second_number&#34;</span><span class="p">:</span> <span class="n">second_number</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;operation&#34;</span><span class="p">:</span> <span class="n">operation</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span></span></span></code></pre></div></div>
+<h3 id="工具类的关键组成部分">工具类的关键组成部分</h3>
+<ol>
+<li><strong>继承 BaseTool</strong>：所有工具都必须继承自 <code>BaseTool</code> 基类</li>
+<li><strong>定义工具属性</strong>：
+<ul>
+<li><code>name</code>：工具的唯一标识符</li>
+<li><code>description</code>：工具的详细描述，会显示在 AI 的工具选择界面</li>
+<li><code>parameters</code>：定义工具接受的参数，使用 JSONSchema 格式</li>
+</ul>
+</li>
+<li><strong>实现 execute 方法</strong>：工具的核心逻辑，接收参数并返回结果</li>
+</ol>
+<h2 id="步骤-2注册工具到智能体">步骤 2：注册工具到智能体</h2>
+<p>创建好工具类后，我们需要将其导入并添加到 Manus 智能体的可用工具列表中。这需要修改 <code>./app/agent/manus.py</code> 文件。</p>]]></description>
+</item>
+<item>
+    <title>OpenManus 项目简介</title>
+    <link>//localhost:1313/agent_research/</link>
+    <pubDate>Thu, 13 Mar 2025 00:00:00 &#43;0000</pubDate>
+    <author>openmanus</author>
+    <guid>//localhost:1313/agent_research/</guid>
+    <description><![CDATA[<h1 id="项目概述">项目概述</h1>
+<p>OpenManus 是一个基于大型语言模型(LLM)的智能代理框架，旨在创建能够使用各种工具执行复杂任务的AI助手。该项目采用模块化设计，包含多种代理类型、工具集合和执行流程，使开发者能够构建功能强大的AI应用。</p>
+<p></p>
+<p>开源地址：https://github.com/mannaandpoem/OpenManus/tree/main</p>
+<h1 id="项目结构">项目结构</h1>
+<p>项目主要由以下几个核心模块组成：</p>
+<ol>
+<li><strong>Agent模块</strong> - 定义各种类型的智能代理</li>
+<li><strong>Tool模块</strong> - 提供各种工具的实现</li>
+<li><strong>Flow模块</strong> - 管理代理的执行流程</li>
+<li><strong>Prompt模块</strong> - 存储各种代理的提示词模板</li>
+<li><strong>基础设施</strong> - 包括配置、日志、异常处理等</li>
+</ol>
+<h2 id="学习路径">学习路径</h2>
+<h3 id="1-从基础设施开始">1. 从基础设施开始</h3>
+<p>首先了解项目的基础设施，这些组件为整个项目提供支持：</p>
+<ul>
+<li><strong>config.py</strong> - 配置管理，包括LLM设置</li>
+<li><strong>logger.py</strong> - 日志系统</li>
+<li><strong>exceptions.py</strong> - 异常处理</li>
+<li><strong>schema.py</strong> - 核心数据模型和结构</li>
+</ul>
+<p>这些文件定义了项目的基本数据结构和配置方式，是理解整个项目的基础。</p>
+<h3 id="2-理解核心抽象">2. 理解核心抽象</h3>
+<p>接下来，了解项目的核心抽象类：</p>
+<ul>
+<li><strong>llm.py</strong> - LLM接口，处理与语言模型的交互</li>
+<li><strong>agent/base.py</strong> - 代理的抽象基类</li>
+<li><strong>tool/base.py</strong> - 工具的抽象基类</li>
+<li><strong>flow/base.py</strong> - 流程的抽象基类</li>
+</ul>
+<p>这些抽象类定义了项目的核心架构和扩展点。</p>
+<h3 id="3-探索具体实现">3. 探索具体实现</h3>
+<p>然后，研究各种具体实现：</p>
+<h4 id="代理实现">代理实现</h4>
+<ul>
+<li><strong>agent/react.py</strong> - ReAct代理（推理-行动-观察循环）</li>
+<li><strong>agent/toolcall.py</strong> - 工具调用代理</li>
+<li><strong>agent/planning.py</strong> - 规划代理</li>
+<li><strong>agent/swe.py</strong> - 软件工程代理</li>
+<li><strong>agent/manus.py</strong> - Manus代理</li>
+</ul>
+<h4 id="工具实现">工具实现</h4>
+<ul>
+<li><strong>tool/python_execute.py</strong> - Python代码执行工具</li>
+<li><strong>tool/file_saver.py</strong> - 文件保存工具</li>
+<li><strong>tool/browser_use_tool.py</strong> - 浏览器使用工具</li>
+<li><strong>tool/google_search.py</strong> - Google搜索工具</li>
+<li><strong>tool/terminate.py</strong> - 终止工具</li>
+<li><strong>tool/planning.py</strong> - 规划工具</li>
+</ul>
+<h4 id="流程实现">流程实现</h4>
+<ul>
+<li><strong>flow/flow_factory.py</strong> - 流程工厂</li>
+<li><strong>flow/planning.py</strong> - 规划流程</li>
+</ul>
+<h3 id="4-理解提示词模板">4. 理解提示词模板</h3>
+<p>最后，了解各种代理使用的提示词模板：</p>]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,36 @@
+.home-profile .home-avatar img {
+    width: 16rem !important;
+    border: 1px solid rgb(247, 247, 247) !important; /* 测试用 */
+  }
+
+  /* 为整个网站添加背景壁纸 */
+  body {
+    background-image: url('/images/background_white.svg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+  }
+  
+
+/* 为了保证内容可读性，可以为内容区域添加半透明背景 */
+.container {
+  background-color: rgba(255, 255, 255, 0.0);  /* 白色背景，90%不透明度 */
+  padding: 15px;
+  border-radius: 8px;
+}
+
+
+/* 在文章页面增加不透明度以提高阅读体验 */
+.single .container, article.page.single {
+  background-color: rgba(255, 255, 255, 0.95); /* 文章页面的浅色主题背景 */
+}
+
+[theme=dark] .single .container, [theme=dark] article.page.single {
+  background-color: rgba(30, 30, 30, 0.6); /* 文章页面的深色主题背景 */
+}
+
+
+/* 如果使用暗色主题，可以调整内容区域背景 */
+[theme=dark] .container {
+  background-color: rgba(50, 50, 50, 0.9);  /* 深色背景，90%不透明度 */
+}

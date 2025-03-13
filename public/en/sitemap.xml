@@ -2,32 +2,36 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://localhost:1313/my-first-post/</loc><lastmod>2025-03-11T17:46:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/posts/</loc><lastmod>2025-03-11T17:46:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/</loc><lastmod>2025-03-11T17:46:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>//localhost:1313/categories/</loc><lastmod>2025-03-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="http://localhost:1313/zh-cn/"
+                        href="//localhost:1313/zh-cn/categories/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://localhost:1313/"
+                    href="//localhost:1313/categories/"
                     /></url><url>
-            <loc>http://localhost:1313/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>//localhost:1313/tags/hugo/</loc><lastmod>2025-03-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>//localhost:1313/tags/loveit/</loc><lastmod>2025-03-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>//localhost:1313/posts/</loc><lastmod>2025-03-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>//localhost:1313/tags/</loc><lastmod>2025-03-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="http://localhost:1313/zh-cn/categories/"
+                        href="//localhost:1313/zh-cn/tags/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://localhost:1313/categories/"
+                    href="//localhost:1313/tags/"
                     /></url><url>
-            <loc>http://localhost:1313/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>//localhost:1313/</loc><lastmod>2025-03-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="http://localhost:1313/zh-cn/tags/"
+                        href="//localhost:1313/zh-cn/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://localhost:1313/tags/"
-                    /></url></urlset>
+                    href="//localhost:1313/"
+                    /></url><url>
+            <loc>//localhost:1313/tags/%E5%85%A5%E9%97%A8/</loc><lastmod>2025-03-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>//localhost:1313/categories/%E5%8D%9A%E5%AE%A2/</loc><lastmod>2025-03-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>//localhost:1313/agent_research/</loc><lastmod>2025-03-13T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url></urlset>

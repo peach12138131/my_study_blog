@@ -1,0 +1,92 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="800" viewBox="0 0 1000 800">
+    <!-- 背景 -->
+    <rect width="1000" height="800" fill="#f8f9fa" />
+    
+    <!-- 标题 -->
+    <text x="500" y="40" font-family="Arial" font-size="24" text-anchor="middle" font-weight="bold">OpenManus 项目依赖关系图</text>
+    
+    <!-- 底层组件 -->
+    <rect x="100" y="650" width="800" height="100" rx="10" ry="10" fill="#e6f7ff" stroke="#1890ff" stroke-width="2" />
+    <text x="500" y="690" font-family="Arial" font-size="20" text-anchor="middle" font-weight="bold">基础设施层</text>
+    <text x="200" y="720" font-family="Arial" font-size="16" text-anchor="middle">config.py</text>
+    <text x="350" y="720" font-family="Arial" font-size="16" text-anchor="middle">logger.py</text>
+    <text x="500" y="720" font-family="Arial" font-size="16" text-anchor="middle">exceptions.py</text>
+    <text x="650" y="720" font-family="Arial" font-size="16" text-anchor="middle">schema.py</text>
+    <text x="800" y="720" font-family="Arial" font-size="16" text-anchor="middle">__init__.py</text>
+    
+    <!-- 中间层 -->
+    <rect x="100" y="500" width="800" height="100" rx="10" ry="10" fill="#fff7e6" stroke="#fa8c16" stroke-width="2" />
+    <text x="500" y="540" font-family="Arial" font-size="20" text-anchor="middle" font-weight="bold">核心功能层</text>
+    <text x="200" y="570" font-family="Arial" font-size="16" text-anchor="middle">llm.py</text>
+    <text x="350" y="570" font-family="Arial" font-size="16" text-anchor="middle">tool/base.py</text>
+    <text x="500" y="570" font-family="Arial" font-size="16" text-anchor="middle">agent/base.py</text>
+    <text x="650" y="570" font-family="Arial" font-size="16" text-anchor="middle">flow/base.py</text>
+    <text x="800" y="570" font-family="Arial" font-size="16" text-anchor="middle">prompt/__init__.py</text>
+    
+    <!-- 上层组件 - 工具实现 -->
+    <rect x="100" y="350" width="230" height="100" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2" />
+    <text x="215" y="380" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">工具实现</text>
+    <text x="215" y="410" font-family="Arial" font-size="14" text-anchor="middle">python_execute.py</text>
+    <text x="215" y="430" font-family="Arial" font-size="14" text-anchor="middle">file_saver.py</text>
+    <text x="215" y="450" font-family="Arial" font-size="14" text-anchor="middle">browser_use_tool.py</text>
+    
+    <!-- 上层组件 - 代理实现 -->
+    <rect x="385" y="350" width="230" height="100" rx="10" ry="10" fill="#f9f0ff" stroke="#722ed1" stroke-width="2" />
+    <text x="500" y="380" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">代理实现</text>
+    <text x="500" y="410" font-family="Arial" font-size="14" text-anchor="middle">react.py</text>
+    <text x="500" y="430" font-family="Arial" font-size="14" text-anchor="middle">toolcall.py</text>
+    <text x="500" y="450" font-family="Arial" font-size="14" text-anchor="middle">planning.py</text>
+    
+    <!-- 上层组件 - 流程实现 -->
+    <rect x="670" y="350" width="230" height="100" rx="10" ry="10" fill="#fff2f0" stroke="#f5222d" stroke-width="2" />
+    <text x="785" y="380" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">流程实现</text>
+    <text x="785" y="410" font-family="Arial" font-size="14" text-anchor="middle">flow_factory.py</text>
+    <text x="785" y="430" font-family="Arial" font-size="14" text-anchor="middle">planning.py</text>
+    <text x="785" y="450" font-family="Arial" font-size="14" text-anchor="middle">__init__.py</text>
+    
+    <!-- 应用层 -->
+    <rect x="250" y="150" width="500" height="150" rx="10" ry="10" fill="#f0f5ff" stroke="#2f54eb" stroke-width="2" />
+    <text x="500" y="180" font-family="Arial" font-size="20" text-anchor="middle" font-weight="bold">应用层</text>
+    
+    <!-- 应用层内部组件 -->
+    <rect x="280" y="200" width="200" height="80" rx="5" ry="5" fill="#d6e4ff" stroke="#597ef7" stroke-width="1" />
+    <text x="380" y="230" font-family="Arial" font-size="16" text-anchor="middle">Manus Agent</text>
+    <text x="380" y="255" font-family="Arial" font-size="14" text-anchor="middle">agent/manus.py</text>
+    
+    <rect x="520" y="200" width="200" height="80" rx="5" ry="5" fill="#d6e4ff" stroke="#597ef7" stroke-width="1" />
+    <text x="620" y="230" font-family="Arial" font-size="16" text-anchor="middle">SWE Agent</text>
+    <text x="620" y="255" font-family="Arial" font-size="14" text-anchor="middle">agent/swe.py</text>
+    
+    <!-- 连接线 - 底层到中间层 -->
+    <line x1="500" y1="650" x2="500" y2="600" stroke="#1890ff" stroke-width="2" />
+    
+    <!-- 连接线 - 中间层到上层 -->
+    <line x1="215" y1="500" x2="215" y2="450" stroke="#52c41a" stroke-width="2" />
+    <line x1="500" y1="500" x2="500" y2="450" stroke="#722ed1" stroke-width="2" />
+    <line x1="785" y1="500" x2="785" y2="450" stroke="#f5222d" stroke-width="2" />
+    
+    <!-- 连接线 - 上层到应用层 -->
+    <line x1="215" y1="350" x2="380" y2="280" stroke="#52c41a" stroke-width="2" />
+    <line x1="500" y1="350" x2="500" y2="300" stroke="#722ed1" stroke-width="2" />
+    <line x1="785" y1="350" x2="620" y2="280" stroke="#f5222d" stroke-width="2" />
+    
+    <!-- 图例 -->
+    <rect x="100" y="50" width="20" height="20" fill="#e6f7ff" stroke="#1890ff" stroke-width="1" />
+    <text x="130" y="65" font-family="Arial" font-size="14">基础设施层</text>
+    
+    <rect x="100" y="80" width="20" height="20" fill="#fff7e6" stroke="#fa8c16" stroke-width="1" />
+    <text x="130" y="95" font-family="Arial" font-size="14">核心功能层</text>
+    
+    <rect x="250" y="50" width="20" height="20" fill="#f6ffed" stroke="#52c41a" stroke-width="1" />
+    <text x="280" y="65" font-family="Arial" font-size="14">工具实现</text>
+    
+    <rect x="250" y="80" width="20" height="20" fill="#f9f0ff" stroke="#722ed1" stroke-width="1" />
+    <text x="280" y="95" font-family="Arial" font-size="14">代理实现</text>
+    
+    <rect x="400" y="50" width="20" height="20" fill="#fff2f0" stroke="#f5222d" stroke-width="1" />
+    <text x="430" y="65" font-family="Arial" font-size="14">流程实现</text>
+    
+    <rect x="400" y="80" width="20" height="20" fill="#f0f5ff" stroke="#2f54eb" stroke-width="1" />
+    <text x="430" y="95" font-family="Arial" font-size="14">应用层</text>
+</svg>

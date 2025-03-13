@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>OpenManus 如何添加工具 - TAO Study Notes</title><meta name="Description" content="TAO Study Notes"><meta property="og:url" content="//localhost:1313/agent_research_addtool/">
+  <meta property="og:site_name" content="TAO Study Notes">
+  <meta property="og:title" content="OpenManus 如何添加工具">
+  <meta property="og:description" content="OpenManus 工具添加指南 本指南将详细介绍如何为 OpenManus 智能体添加新工具。我们将以添加一个简单的计算器工具为例，展示整个流程。
+工具添加流程概述 添加一个新工具到 OpenManus 智能体需要完成以下三个主要步骤：
+创建工具类文件：在 ./app/tool/ 目录下创建工具的实现文件 注册工具到智能体：在 ./app/agent/manus.py 中导入并添加工具 更新提示词：在 ./app/prompt/manus.py 中更新提示词，添加工具的描述 下面我们将详细介绍每个步骤。
+步骤 1：创建工具类文件 首先，我们需要在 ./app/tool/ 目录下创建一个新的 Python 文件来实现我们的工具。以计算器工具为例，我们创建 calculator.py。
+calculator.py 的结构 from typing import Union, Dict, Any from app.tool.base import BaseTool class Calculator(BaseTool): name: str = &#34;calculator&#34; description: str = &#34;&#34;&#34;Perform basic mathematical operations including addition, subtraction, multiplication, and division. Use this tool when you need to perform numerical calculations. The tool accepts two numeric values and an operation, and returns the calculation result.&#34;&#34;&#34; parameters: dict = { &#34;type&#34;: &#34;object&#34;, &#34;properties&#34;: { &#34;first_number&#34;: { &#34;type&#34;: &#34;number&#34;, &#34;description&#34;: &#34;(required) 第一个数值操作数。&#34;, }, &#34;second_number&#34;: { &#34;type&#34;: &#34;number&#34;, &#34;description&#34;: &#34;(required) 第二个数值操作数。&#34;, }, &#34;operation&#34;: { &#34;type&#34;: &#34;string&#34;, &#34;description&#34;: &#34;(required) 要执行的数学运算。&#34;, &#34;enum&#34;: [&#34;add&#34;, &#34;subtract&#34;, &#34;multiply&#34;, &#34;divide&#34;], }, }, &#34;required&#34;: [&#34;first_number&#34;, &#34;second_number&#34;, &#34;operation&#34;], } async def execute( self, first_number: Union[int, float], second_number: Union[int, float], operation: str ) -&gt; Dict[str, Any]: &#34;&#34;&#34; 执行基本的数学计算操作。 Args: first_number (Union[int, float]): 第一个数值操作数。 second_number (Union[int, float]): 第二个数值操作数。 operation (str): 要执行的数学运算，可以是 &#34;add&#34;、&#34;subtract&#34;、&#34;multiply&#34; 或 &#34;divide&#34;。 Returns: Dict[str, Any]: 包含计算结果和运算说明的字典。 &#34;&#34;&#34; try: if operation == &#34;add&#34;: result = first_number &#43; second_number expression = f&#34;{first_number} &#43; {second_number}&#34; elif operation == &#34;subtract&#34;: result = first_number - second_number expression = f&#34;{first_number} - {second_number}&#34; elif operation == &#34;multiply&#34;: result = first_number * second_number expression = f&#34;{first_number} × {second_number}&#34; elif operation == &#34;divide&#34;: if second_number == 0: raise ValueError(&#34;除数不能为零&#34;) result = first_number / second_number expression = f&#34;{first_number} ÷ {second_number}&#34; else: raise ValueError(f&#34;不支持的操作: {operation}&#34;) return { &#34;result&#34;: result, &#34;expression&#34;: expression, &#34;operation&#34;: operation } except Exception as e: return { &#34;error&#34;: str(e), &#34;first_number&#34;: first_number, &#34;second_number&#34;: second_number, &#34;operation&#34;: operation }工具类的关键组成部分 继承 BaseTool：所有工具都必须继承自 BaseTool 基类 定义工具属性： name：工具的唯一标识符 description：工具的详细描述，会显示在 AI 的工具选择界面 parameters：定义工具接受的参数，使用 JSONSchema 格式 实现 execute 方法：工具的核心逻辑，接收参数并返回结果 步骤 2：注册工具到智能体 创建好工具类后，我们需要将其导入并添加到 Manus 智能体的可用工具列表中。这需要修改 ./app/agent/manus.py 文件。">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-13T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-03-13T00:00:00+00:00">
+    <meta property="article:tag" content="Agent">
+    <meta property="article:tag" content="OpenManus">
+    <meta property="og:image" content="//localhost:1313/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="//localhost:1313/logo.png">
+  <meta name="twitter:title" content="OpenManus 如何添加工具">
+  <meta name="twitter:description" content="OpenManus 工具添加指南 本指南将详细介绍如何为 OpenManus 智能体添加新工具。我们将以添加一个简单的计算器工具为例，展示整个流程。
+工具添加流程概述 添加一个新工具到 OpenManus 智能体需要完成以下三个主要步骤：
+创建工具类文件：在 ./app/tool/ 目录下创建工具的实现文件 注册工具到智能体：在 ./app/agent/manus.py 中导入并添加工具 更新提示词：在 ./app/prompt/manus.py 中更新提示词，添加工具的描述 下面我们将详细介绍每个步骤。
+步骤 1：创建工具类文件 首先，我们需要在 ./app/tool/ 目录下创建一个新的 Python 文件来实现我们的工具。以计算器工具为例，我们创建 calculator.py。
+calculator.py 的结构 from typing import Union, Dict, Any from app.tool.base import BaseTool class Calculator(BaseTool): name: str = &#34;calculator&#34; description: str = &#34;&#34;&#34;Perform basic mathematical operations including addition, subtraction, multiplication, and division. Use this tool when you need to perform numerical calculations. The tool accepts two numeric values and an operation, and returns the calculation result.&#34;&#34;&#34; parameters: dict = { &#34;type&#34;: &#34;object&#34;, &#34;properties&#34;: { &#34;first_number&#34;: { &#34;type&#34;: &#34;number&#34;, &#34;description&#34;: &#34;(required) 第一个数值操作数。&#34;, }, &#34;second_number&#34;: { &#34;type&#34;: &#34;number&#34;, &#34;description&#34;: &#34;(required) 第二个数值操作数。&#34;, }, &#34;operation&#34;: { &#34;type&#34;: &#34;string&#34;, &#34;description&#34;: &#34;(required) 要执行的数学运算。&#34;, &#34;enum&#34;: [&#34;add&#34;, &#34;subtract&#34;, &#34;multiply&#34;, &#34;divide&#34;], }, }, &#34;required&#34;: [&#34;first_number&#34;, &#34;second_number&#34;, &#34;operation&#34;], } async def execute( self, first_number: Union[int, float], second_number: Union[int, float], operation: str ) -&gt; Dict[str, Any]: &#34;&#34;&#34; 执行基本的数学计算操作。 Args: first_number (Union[int, float]): 第一个数值操作数。 second_number (Union[int, float]): 第二个数值操作数。 operation (str): 要执行的数学运算，可以是 &#34;add&#34;、&#34;subtract&#34;、&#34;multiply&#34; 或 &#34;divide&#34;。 Returns: Dict[str, Any]: 包含计算结果和运算说明的字典。 &#34;&#34;&#34; try: if operation == &#34;add&#34;: result = first_number &#43; second_number expression = f&#34;{first_number} &#43; {second_number}&#34; elif operation == &#34;subtract&#34;: result = first_number - second_number expression = f&#34;{first_number} - {second_number}&#34; elif operation == &#34;multiply&#34;: result = first_number * second_number expression = f&#34;{first_number} × {second_number}&#34; elif operation == &#34;divide&#34;: if second_number == 0: raise ValueError(&#34;除数不能为零&#34;) result = first_number / second_number expression = f&#34;{first_number} ÷ {second_number}&#34; else: raise ValueError(f&#34;不支持的操作: {operation}&#34;) return { &#34;result&#34;: result, &#34;expression&#34;: expression, &#34;operation&#34;: operation } except Exception as e: return { &#34;error&#34;: str(e), &#34;first_number&#34;: first_number, &#34;second_number&#34;: second_number, &#34;operation&#34;: operation }工具类的关键组成部分 继承 BaseTool：所有工具都必须继承自 BaseTool 基类 定义工具属性： name：工具的唯一标识符 description：工具的详细描述，会显示在 AI 的工具选择界面 parameters：定义工具接受的参数，使用 JSONSchema 格式 实现 execute 方法：工具的核心逻辑，接收参数并返回结果 步骤 2：注册工具到智能体 创建好工具类后，我们需要将其导入并添加到 Manus 智能体的可用工具列表中。这需要修改 ./app/agent/manus.py 文件。">
+<meta name="application-name" content="TAO Study Notes">
+<meta name="apple-mobile-web-app-title" content="TAO Study Notes"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="//localhost:1313/agent_research_addtool/" /><link rel="prev" href="//localhost:1313/agent_research/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "OpenManus 如何添加工具",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "\/\/localhost:1313\/agent_research_addtool\/"
+        },"image": ["\/\/localhost:1313\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Agent, OpenManus","wordcount":  646 ,
+        "url": "\/\/localhost:1313\/agent_research_addtool\/","datePublished": "2025-03-13T00:00:00+00:00","dateModified": "2025-03-13T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "\/\/localhost:1313\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "openmanus"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="TAO Study Notes"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/wallhaven-m373o9.jpg"
+        data-srcset="/images/wallhaven-m373o9.jpg, /images/wallhaven-m373o9.jpg 1.5x, /images/wallhaven-m373o9.jpg 2x"
+        data-sizes="auto"
+        alt="/images/wallhaven-m373o9.jpg"
+        title="/images/wallhaven-m373o9.jpg" />TAO Study Notes</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/categories/documentation/"> Docs </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="/" title="GitHub"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="TAO Study Notes"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/wallhaven-m373o9.jpg"
+        data-srcset="/images/wallhaven-m373o9.jpg, /images/wallhaven-m373o9.jpg 1.5x, /images/wallhaven-m373o9.jpg 2x"
+        data-sizes="auto"
+        alt="/images/wallhaven-m373o9.jpg"
+        title="/images/wallhaven-m373o9.jpg" />TAO Study Notes</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/categories/documentation/" title="">Docs</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/" title="GitHub"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">OpenManus 如何添加工具</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>openmanus</a></span>&nbsp;<span class="post-category">included in <a href="/categories/agent/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Agent</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-03-13">2025-03-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;646 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#工具添加流程概述">工具添加流程概述</a></li>
+    <li><a href="#步骤-1创建工具类文件">步骤 1：创建工具类文件</a>
+      <ul>
+        <li><a href="#calculatorpy-的结构">calculator.py 的结构</a></li>
+        <li><a href="#工具类的关键组成部分">工具类的关键组成部分</a></li>
+      </ul>
+    </li>
+    <li><a href="#步骤-2注册工具到智能体">步骤 2：注册工具到智能体</a>
+      <ul>
+        <li><a href="#修改-manuspy">修改 manus.py</a></li>
+        <li><a href="#关键修改点">关键修改点</a></li>
+      </ul>
+    </li>
+    <li><a href="#步骤-3更新提示词">步骤 3：更新提示词</a>
+      <ul>
+        <li><a href="#修改-manuspy-prompt">修改 manus.py (prompt)</a></li>
+        <li><a href="#关键修改点-1">关键修改点</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="openmanus-工具添加指南">OpenManus 工具添加指南</h1>
+<p>本指南将详细介绍如何为 OpenManus 智能体添加新工具。我们将以添加一个简单的计算器工具为例，展示整个流程。</p>
+<h2 id="工具添加流程概述">工具添加流程概述</h2>
+<p>添加一个新工具到 OpenManus 智能体需要完成以下三个主要步骤：</p>
+<ol>
+<li><strong>创建工具类文件</strong>：在 <code>./app/tool/</code> 目录下创建工具的实现文件</li>
+<li><strong>注册工具到智能体</strong>：在 <code>./app/agent/manus.py</code> 中导入并添加工具</li>
+<li><strong>更新提示词</strong>：在 <code>./app/prompt/manus.py</code> 中更新提示词，添加工具的描述</li>
+</ol>
+<p>下面我们将详细介绍每个步骤。</p>
+<h2 id="步骤-1创建工具类文件">步骤 1：创建工具类文件</h2>
+<p>首先，我们需要在 <code>./app/tool/</code> 目录下创建一个新的 Python 文件来实现我们的工具。以计算器工具为例，我们创建 <code>calculator.py</code>。</p>
+<h3 id="calculatorpy-的结构">calculator.py 的结构</h3>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">app.tool.base</span> <span class="kn">import</span> <span class="n">BaseTool</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Calculator</span><span class="p">(</span><span class="n">BaseTool</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&#34;calculator&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;Perform basic mathematical operations including addition, subtraction, multiplication, and division.
+</span></span></span><span class="line"><span class="cl"><span class="s2">                 Use this tool when you need to perform numerical calculations. The tool accepts two numeric values and an operation, and returns the calculation result.&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;object&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;first_number&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;number&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;(required) 第一个数值操作数。&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;second_number&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;number&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;(required) 第二个数值操作数。&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;operation&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;(required) 要执行的数学运算。&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;enum&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;add&#34;</span><span class="p">,</span> <span class="s2">&#34;subtract&#34;</span><span class="p">,</span> <span class="s2">&#34;multiply&#34;</span><span class="p">,</span> <span class="s2">&#34;divide&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;required&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;first_number&#34;</span><span class="p">,</span> <span class="s2">&#34;second_number&#34;</span><span class="p">,</span> <span class="s2">&#34;operation&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">async</span> <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">first_number</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">second_number</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">operation</span><span class="p">:</span> <span class="nb">str</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        执行基本的数学计算操作。
+</span></span></span><span class="line"><span class="cl"><span class="s2">        
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Args:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            first_number (Union[int, float]): 第一个数值操作数。
+</span></span></span><span class="line"><span class="cl"><span class="s2">            second_number (Union[int, float]): 第二个数值操作数。
+</span></span></span><span class="line"><span class="cl"><span class="s2">            operation (str): 要执行的数学运算，可以是 &#34;add&#34;、&#34;subtract&#34;、&#34;multiply&#34; 或 &#34;divide&#34;。
+</span></span></span><span class="line"><span class="cl"><span class="s2">        
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            Dict[str, Any]: 包含计算结果和运算说明的字典。
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&#34;add&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result</span> <span class="o">=</span> <span class="n">first_number</span> <span class="o">+</span> <span class="n">second_number</span>
+</span></span><span class="line"><span class="cl">                <span class="n">expression</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">first_number</span><span class="si">}</span><span class="s2"> + </span><span class="si">{</span><span class="n">second_number</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&#34;subtract&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result</span> <span class="o">=</span> <span class="n">first_number</span> <span class="o">-</span> <span class="n">second_number</span>
+</span></span><span class="line"><span class="cl">                <span class="n">expression</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">first_number</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">second_number</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&#34;multiply&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result</span> <span class="o">=</span> <span class="n">first_number</span> <span class="o">*</span> <span class="n">second_number</span>
+</span></span><span class="line"><span class="cl">                <span class="n">expression</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">first_number</span><span class="si">}</span><span class="s2"> × </span><span class="si">{</span><span class="n">second_number</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&#34;divide&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">second_number</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&#34;除数不能为零&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result</span> <span class="o">=</span> <span class="n">first_number</span> <span class="o">/</span> <span class="n">second_number</span>
+</span></span><span class="line"><span class="cl">                <span class="n">expression</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">first_number</span><span class="si">}</span><span class="s2"> ÷ </span><span class="si">{</span><span class="n">second_number</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;不支持的操作: </span><span class="si">{</span><span class="n">operation</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;result&#34;</span><span class="p">:</span> <span class="n">result</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;expression&#34;</span><span class="p">:</span> <span class="n">expression</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;operation&#34;</span><span class="p">:</span> <span class="n">operation</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;first_number&#34;</span><span class="p">:</span> <span class="n">first_number</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;second_number&#34;</span><span class="p">:</span> <span class="n">second_number</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;operation&#34;</span><span class="p">:</span> <span class="n">operation</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span></span></span></code></pre></div></div>
+<h3 id="工具类的关键组成部分">工具类的关键组成部分</h3>
+<ol>
+<li><strong>继承 BaseTool</strong>：所有工具都必须继承自 <code>BaseTool</code> 基类</li>
+<li><strong>定义工具属性</strong>：
+<ul>
+<li><code>name</code>：工具的唯一标识符</li>
+<li><code>description</code>：工具的详细描述，会显示在 AI 的工具选择界面</li>
+<li><code>parameters</code>：定义工具接受的参数，使用 JSONSchema 格式</li>
+</ul>
+</li>
+<li><strong>实现 execute 方法</strong>：工具的核心逻辑，接收参数并返回结果</li>
+</ol>
+<h2 id="步骤-2注册工具到智能体">步骤 2：注册工具到智能体</h2>
+<p>创建好工具类后，我们需要将其导入并添加到 Manus 智能体的可用工具列表中。这需要修改 <code>./app/agent/manus.py</code> 文件。</p>
+<h3 id="修改-manuspy">修改 manus.py</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Field</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">app.agent.toolcall</span> <span class="kn">import</span> <span class="n">ToolCallAgent</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">app.prompt.manus</span> <span class="kn">import</span> <span class="n">NEXT_STEP_PROMPT</span><span class="p">,</span> <span class="n">SYSTEM_PROMPT</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">app.tool</span> <span class="kn">import</span> <span class="n">Terminate</span><span class="p">,</span> <span class="n">ToolCollection</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">app.tool.browser_use_tool</span> <span class="kn">import</span> <span class="n">BrowserUseTool</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">app.tool.file_saver</span> <span class="kn">import</span> <span class="n">FileSaver</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">app.tool.google_search</span> <span class="kn">import</span> <span class="n">GoogleSearch</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">app.tool.python_execute</span> <span class="kn">import</span> <span class="n">PythonExecute</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 导入新工具</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">app.tool.calculator</span> <span class="kn">import</span> <span class="n">Calculator</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Manus</span><span class="p">(</span><span class="n">ToolCallAgent</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    A versatile general-purpose agent that uses planning to solve various tasks.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    This agent extends PlanningAgent with a comprehensive set of tools and capabilities,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    including Python execution, web browsing, file operations, and information retrieval
+</span></span></span><span class="line"><span class="cl"><span class="s2">    to handle a wide range of user requests.
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&#34;Manus&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;A versatile agent that can solve various tasks using multiple tools&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">system_prompt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">SYSTEM_PROMPT</span>
+</span></span><span class="line"><span class="cl">    <span class="n">next_step_prompt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">NEXT_STEP_PROMPT</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 在工具集合中添加新工具</span>
+</span></span><span class="line"><span class="cl">    <span class="n">available_tools</span><span class="p">:</span> <span class="n">ToolCollection</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">ToolCollection</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">PythonExecute</span><span class="p">(),</span> <span class="n">GoogleSearch</span><span class="p">(),</span> <span class="n">BrowserUseTool</span><span class="p">(),</span> <span class="n">FileSaver</span><span class="p">(),</span> <span class="n">Terminate</span><span class="p">(),</span> <span class="n">Calculator</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span></span></span></code></pre></div></div>
+<h3 id="关键修改点">关键修改点</h3>
+<ol>
+<li><strong>导入工具类</strong>：添加 <code>from app.tool.calculator import Calculator</code> 导入语句</li>
+<li><strong>添加到工具集合</strong>：在 <code>ToolCollection</code> 中添加 <code>Calculator()</code> 实例</li>
+</ol>
+<h2 id="步骤-3更新提示词">步骤 3：更新提示词</h2>
+<p>最后，我们需要更新 <code>./app/prompt/manus.py</code> 中的提示词，添加关于新工具的描述，以便 AI 知道何时使用这个工具。</p>
+<h3 id="修改-manuspy-prompt">修改 manus.py (prompt)</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">SYSTEM_PROMPT</span> <span class="o">=</span> <span class="s2">&#34;You are OpenManus, an all-capable AI assistant, aimed at solving any task presented by the user. You have various tools at your disposal that you can call upon to efficiently complete complex requests. Whether it&#39;s programming, information retrieval, file processing, or web browsing, you can handle it all.&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">NEXT_STEP_PROMPT</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;You can interact with the computer using PythonExecute, save important content and information files through FileSaver, open browsers with BrowserUseTool, and retrieve information using GoogleSearch. You can also perform mathematical calculations using Calculator.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">PythonExecute: Execute Python code to interact with the computer system, data processing, automation tasks, etc.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">FileSaver: Save files locally, such as txt, py, html, etc.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">BrowserUseTool: Open, browse, and use web browsers. If you open a local HTML file, you must provide the absolute path to the file.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">GoogleSearch: Perform web information retrieval.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">Calculator: Perform basic mathematical operations including addition, subtraction, multiplication, and division.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">Based on user needs, proactively select the most appropriate tool or combination of tools. For complex tasks, you can break down the problem and use different tools step by step to solve it. After using each tool, clearly explain the execution results and suggest the next steps.
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span></span></span></code></pre></div></div>
+<h3 id="关键修改点-1">关键修改点</h3>
+<ol>
+<li><strong>添加工具描述</strong>：在 <code>NEXT_STEP_PROMPT</code> 中添加 Calculator 工具的简要描述</li>
+<li><strong>更新工具列表</strong>：在开头的概述中提及新添加的 Calculator 工具</li>
+</ol>
+<h2 id="总结">总结</h2>
+<p>通过以上三个步骤，我们成功地为 OpenManus 智能体添加了一个新的计算器工具。这个过程可以概括为：</p>
+<ol>
+<li>创建工具类文件，实现工具逻辑</li>
+<li>将工具注册到智能体的可用工具列表中</li>
+<li>更新提示词，添加工具的描述信息</li>
+</ol>
+<p>这个流程适用于添加任何新工具到 OpenManus 智能体中。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-03-13</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/agent_research_addtool/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/agent/">Agent</a>,&nbsp;<a href="/tags/openmanus/">OpenManus</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/agent_research/" class="prev" rel="prev" title="OpenManus 项目简介"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>OpenManus 项目简介</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2025</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/css/custom.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/algoliasearch/lite/browser.umd.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"search":{"algoliaAppID":"4D1IDY8JU6","algoliaIndex":"index","algoliaSearchKey":"05332ac5ed76655a511f0da583a9afac","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script src="/js/theme.min.js"></script></body>
+</html>

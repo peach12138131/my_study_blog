@@ -1,0 +1,123 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+    <!-- 背景 -->
+    <rect width="1000" height="1000" fill="#f8f9fa" />
+    
+    <!-- 标题 -->
+    <text x="500" y="40" font-family="Arial" font-size="24" text-anchor="middle" font-weight="bold">OpenManus 代理执行流程图</text>
+    
+    <!-- 开始节点 -->
+    <ellipse cx="500" cy="100" rx="80" ry="40" fill="#d6e4ff" stroke="#597ef7" stroke-width="2" />
+    <text x="500" y="105" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">开始</text>
+    
+    <!-- 初始化代理 -->
+    <rect x="400" y="180" width="200" height="60" rx="10" ry="10" fill="#d6e4ff" stroke="#597ef7" stroke-width="2" />
+    <text x="500" y="215" font-family="Arial" font-size="16" text-anchor="middle">初始化代理</text>
+    
+    <!-- 接收用户输入 -->
+    <rect x="400" y="280" width="200" height="60" rx="10" ry="10" fill="#d6e4ff" stroke="#597ef7" stroke-width="2" />
+    <text x="500" y="315" font-family="Arial" font-size="16" text-anchor="middle">接收用户输入</text>
+    
+    <!-- 思考/规划 -->
+    <rect x="400" y="380" width="200" height="60" rx="10" ry="10" fill="#d6e4ff" stroke="#597ef7" stroke-width="2" />
+    <text x="500" y="415" font-family="Arial" font-size="16" text-anchor="middle">思考/规划 (think方法)</text>
+    
+    <!-- 决策点：是否需要工具 -->
+    <polygon points="500,480 550,530 500,580 450,530" fill="#fff7e6" stroke="#fa8c16" stroke-width="2" />
+    <text x="500" y="535" font-family="Arial" font-size="14" text-anchor="middle">需要工具?</text>
+    
+    <!-- 工具调用 -->
+    <rect x="600" y="580" width="200" height="60" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2" />
+    <text x="700" y="615" font-family="Arial" font-size="16" text-anchor="middle">工具调用</text>
+    
+    <!-- 工具执行 -->
+    <rect x="600" y="680" width="200" height="60" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2" />
+    <text x="700" y="715" font-family="Arial" font-size="16" text-anchor="middle">工具执行</text>
+    
+    <!-- 处理工具结果 -->
+    <rect x="600" y="780" width="200" height="60" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2" />
+    <text x="700" y="815" font-family="Arial" font-size="16" text-anchor="middle">处理工具结果</text>
+    
+    <!-- 生成响应 -->
+    <rect x="400" y="680" width="200" height="60" rx="10" ry="10" fill="#d6e4ff" stroke="#597ef7" stroke-width="2" />
+    <text x="500" y="715" font-family="Arial" font-size="16" text-anchor="middle">生成响应</text>
+    
+    <!-- 决策点：是否完成 -->
+    <polygon points="500,780 550,830 500,880 450,830" fill="#fff7e6" stroke="#fa8c16" stroke-width="2" />
+    <text x="500" y="835" font-family="Arial" font-size="14" text-anchor="middle">任务完成?</text>
+    
+    <!-- 结束节点 -->
+    <ellipse cx="500" cy="950" rx="80" ry="40" fill="#d6e4ff" stroke="#597ef7" stroke-width="2" />
+    <text x="500" y="955" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">结束</text>
+    
+    <!-- 连接线 -->
+    <line x1="500" y1="140" x2="500" y2="180" stroke="#597ef7" stroke-width="2" />
+    <polygon points="500,180 495,170 505,170" fill="#597ef7" />
+    
+    <line x1="500" y1="240" x2="500" y2="280" stroke="#597ef7" stroke-width="2" />
+    <polygon points="500,280 495,270 505,270" fill="#597ef7" />
+    
+    <line x1="500" y1="340" x2="500" y2="380" stroke="#597ef7" stroke-width="2" />
+    <polygon points="500,380 495,370 505,370" fill="#597ef7" />
+    
+    <line x1="500" y1="440" x2="500" y2="480" stroke="#597ef7" stroke-width="2" />
+    <polygon points="500,480 495,470 505,470" fill="#597ef7" />
+    
+    <!-- 是，需要工具 -->
+    <line x1="550" y1="530" x2="600" y2="530" stroke="#52c41a" stroke-width="2" />
+    <line x1="600" y1="530" x2="700" y2="530" stroke="#52c41a" stroke-width="2" />
+    <line x1="700" y1="530" x2="700" y2="580" stroke="#52c41a" stroke-width="2" />
+    <polygon points="700,580 695,570 705,570" fill="#52c41a" />
+    <text x="620" y="520" font-family="Arial" font-size="14">是</text>
+    
+    <line x1="700" y1="640" x2="700" y2="680" stroke="#52c41a" stroke-width="2" />
+    <polygon points="700,680 695,670 705,670" fill="#52c41a" />
+    
+    <line x1="700" y1="740" x2="700" y2="780" stroke="#52c41a" stroke-width="2" />
+    <polygon points="700,780 695,770 705,770" fill="#52c41a" />
+    
+    <line x1="600" y1="810" x2="550" y2="810" stroke="#52c41a" stroke-width="2" />
+    <line x1="550" y1="810" x2="550" y2="530" stroke="#52c41a" stroke-width="2" />
+    <polygon points="550,530 545,540 555,540" fill="#52c41a" />
+    
+    <!-- 否，不需要工具 -->
+    <line x1="450" y1="530" x2="400" y2="530" stroke="#597ef7" stroke-width="2" />
+    <line x1="400" y1="530" x2="300" y2="530" stroke="#597ef7" stroke-width="2" />
+    <line x1="300" y1="530" x2="300" y2="710" stroke="#597ef7" stroke-width="2" />
+    <line x1="300" y1="710" x2="400" y2="710" stroke="#597ef7" stroke-width="2" />
+    <polygon points="400,710 390,705 390,715" fill="#597ef7" />
+    <text x="320" y="520" font-family="Arial" font-size="14">否</text>
+    
+    <line x1="500" y1="740" x2="500" y2="780" stroke="#597ef7" stroke-width="2" />
+    <polygon points="500,780 495,770 505,770" fill="#597ef7" />
+    
+    <!-- 是，任务完成 -->
+    <line x1="500" y1="880" x2="500" y2="910" stroke="#597ef7" stroke-width="2" />
+    <polygon points="500,910 495,900 505,900" fill="#597ef7" />
+    <text x="510" y="900" font-family="Arial" font-size="14">是</text>
+    
+    <!-- 否，任务未完成 -->
+    <line x1="450" y1="830" x2="250" y2="830" stroke="#597ef7" stroke-width="2" />
+    <line x1="250" y1="830" x2="250" y2="310" stroke="#597ef7" stroke-width="2" />
+    <line x1="250" y1="310" x2="400" y2="310" stroke="#597ef7" stroke-width="2" />
+    <polygon points="400,310 390,305 390,315" fill="#597ef7" />
+    <text x="260" y="810" font-family="Arial" font-size="14">否</text>
+    
+    <!-- 注释框 -->
+    <rect x="750" y="100" width="200" height="200" rx="10" ry="10" fill="#f9f0ff" stroke="#722ed1" stroke-width="2" opacity="0.8" />
+    <text x="850" y="130" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">执行流程说明</text>
+    <text x="760" y="160" font-family="Arial" font-size="14">1. 代理初始化</text>
+    <text x="760" y="185" font-family="Arial" font-size="14">2. 接收用户输入</text>
+    <text x="760" y="210" font-family="Arial" font-size="14">3. 思考并规划行动</text>
+    <text x="760" y="235" font-family="Arial" font-size="14">4. 执行工具或生成响应</text>
+    <text x="760" y="260" font-family="Arial" font-size="14">5. 判断任务是否完成</text>
+    
+    <!-- 工具执行流程说明 -->
+    <rect x="750" y="350" width="200" height="180" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2" opacity="0.8" />
+    <text x="850" y="380" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">工具执行流程</text>
+    <text x="760" y="410" font-family="Arial" font-size="14">1. 确定需要的工具</text>
+    <text x="760" y="435" font-family="Arial" font-size="14">2. 准备工具参数</text>
+    <text x="760" y="460" font-family="Arial" font-size="14">3. 调用工具执行</text>
+    <text x="760" y="485" font-family="Arial" font-size="14">4. 获取工具执行结果</text>
+    <text x="760" y="510" font-family="Arial" font-size="14">5. 更新代理状态</text>
+</svg>
