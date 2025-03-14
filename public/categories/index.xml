@@ -4,11 +4,19 @@
         <link>//localhost:1313/categories/</link>
         <description>Categories - Category - TAO Study Notes</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 13 Mar 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="//localhost:1313/categories/" rel="self" type="application/rss+xml" /><item>
-    <title>博客</title>
-    <link>//localhost:1313/categories/%E5%8D%9A%E5%AE%A2/</link>
+    <title>Agent</title>
+    <link>//localhost:1313/categories/agent/</link>
     <pubDate>Thu, 13 Mar 2025 00:00:00 &#43;0000</pubDate>
     <author>xxxx</author>
-    <guid>//localhost:1313/categories/%E5%8D%9A%E5%AE%A2/</guid>
+    <guid>//localhost:1313/categories/agent/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>推荐系统</title>
+    <link>//localhost:1313/categories/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</link>
+    <pubDate>Thu, 13 Mar 2025 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>//localhost:1313/categories/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

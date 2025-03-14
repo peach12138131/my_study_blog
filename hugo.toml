@@ -128,7 +128,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     [params.header.title]
       # URL of the LOGO
       # LOGO 的 URL
-      logo = "/images/wallhaven-m373o9.jpg"
+      logo = ""
       # title name
       # 标题名称
       name = "TAO Study Notes"
@@ -261,7 +261,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       gravatarEmail = ""
       # URL of avatar shown in home page
       # 主页显示头像的 URL
-      avatarURL = "/images/wallhaven-m373o9.jpg"
+      avatarURL = "images/wallhaven-m373o9.jpg"
       # title shown in home page (HTML format is supported)
       # 主页显示的网站标题 (支持 HTML 格式)
       title = ""
@@ -701,6 +701,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     # 位于 "themes/LoveIt/assets/data/cdn/" 目录
     # 可以在你的项目下相同路径存放你自己的数据文件:
     # "assets/data/cdn/"
+    enable = false
     data = "jsdelivr.yml"
 
   # Compatibility config

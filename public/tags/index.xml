@@ -4,27 +4,27 @@
         <link>//localhost:1313/tags/</link>
         <description>Tags - Tag - TAO Study Notes</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 13 Mar 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="//localhost:1313/tags/" rel="self" type="application/rss+xml" /><item>
-    <title>Hugo</title>
-    <link>//localhost:1313/tags/hugo/</link>
+    <title>Agent</title>
+    <link>//localhost:1313/tags/agent/</link>
     <pubDate>Thu, 13 Mar 2025 00:00:00 &#43;0000</pubDate>
     <author>xxxx</author>
-    <guid>//localhost:1313/tags/hugo/</guid>
+    <guid>//localhost:1313/tags/agent/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>LoveIt</title>
-    <link>//localhost:1313/tags/loveit/</link>
+    <title>OpenManus</title>
+    <link>//localhost:1313/tags/openmanus/</link>
     <pubDate>Thu, 13 Mar 2025 00:00:00 &#43;0000</pubDate>
     <author>xxxx</author>
-    <guid>//localhost:1313/tags/loveit/</guid>
+    <guid>//localhost:1313/tags/openmanus/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>入门</title>
-    <link>//localhost:1313/tags/%E5%85%A5%E9%97%A8/</link>
+    <title>推荐系统</title>
+    <link>//localhost:1313/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</link>
     <pubDate>Thu, 13 Mar 2025 00:00:00 &#43;0000</pubDate>
     <author>xxxx</author>
-    <guid>//localhost:1313/tags/%E5%85%A5%E9%97%A8/</guid>
+    <guid>//localhost:1313/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>
