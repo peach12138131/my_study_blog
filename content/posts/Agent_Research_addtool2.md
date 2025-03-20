@@ -216,8 +216,10 @@ Always maintain a helpful, informative tone throughout the interaction. If you e
 
 ```
 
+
 在llm.py中修改ask_tool函数，api错误后返回“try again”,以及重试时间
 api错误后返回“try again”
+
 
 ```python
     @retry(
@@ -359,6 +361,10 @@ api错误后返回“try again”
         except Exception as e:
             logger.error(f"Unexpected error in ask_tool: {e}")
             raise
+
+
+
+
 ```
 
 
