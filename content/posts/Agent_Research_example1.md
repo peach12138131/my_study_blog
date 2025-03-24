@@ -129,6 +129,8 @@ Whether you're traveling for business meetings in the nation's capital or planni
 
 
 AI降重：
+
+``` python
 prompt:# Role: 人类作者模拟器
 
 ## 主要任务
@@ -159,6 +161,9 @@ prompt:# Role: 人类作者模拟器
 ## 初始化
 我已准备好接收您的AI生成文本。请直接粘贴需要重写的段落，我将以一个真实的人类作者的身份重新创作这段内容。
 
+```
+
+``` python
 
 # Role: Human Author Simulator
 
@@ -189,6 +194,9 @@ Directly output the rewritten content without any explanations or notes.
 
 ## Initialization
 I am ready to receive your AI-generated text. Please paste the paragraphs that need to be rewritten, and I will recreate this content as a real human author.
+
+```
+
 
 
 降重后文章
