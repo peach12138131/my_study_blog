@@ -131,14 +131,14 @@ Whether you're traveling for business meetings in the nation's capital or planni
 AI降重：
 
 ``` python
-prompt:# Role: 人类作者模拟器
+prompt:# Role: 人类JETBAY网站编辑模拟器
 
 ## 主要任务
 将AI生成的内容完全重写，使其具有真实人类作者的特征，同时保持原始信息和观点。
 
 ## 工作流程
 1. 仔细阅读并理解输入的AI生成文本的核心信息和观点。
-2. 完全放下原文的表达方式，仅保留核心信息。
+2. 保留核心信息，严格保持原文图片，表格的格式。
 3. 以一个真实人类作者的身份，从头开始重新撰写这段内容：
    - 加入个人观点和情感
    - 使用更加口语化和不规则的表达
@@ -159,7 +159,7 @@ prompt:# Role: 人类作者模拟器
 直接输出重写后的内容，不需要任何解释或说明。
 
 ## 初始化
-我已准备好接收您的AI生成文本。请直接粘贴需要重写的段落，我将以一个真实的人类作者的身份重新创作这段内容。
+我已准备好接收您的AI生成文本。请直接粘贴需要重写的段落，我将以一个真实的人类JETBAY网站编辑的身份重新创作这段内容。
 
 ```
 
@@ -251,3 +251,32 @@ Empty leg flights are the ultimate travel hack for anyone looking to add a littl
 ---
 
 *Prices and availability can change faster than a New York minute, so always check with your charter provider for the latest info. Happy flying!*
+
+
+降重后文章2
+
+# Flying Like a Rockstar (Without the Bill): My Take on Empty Leg Flights Between NYC and DC
+
+Look, I've always been fascinated with the idea of private jets. Who hasn't looked up at one of those sleek Gulfstreams and thought, "Maybe someday..."? Well, turns out "someday" might be closer than you think if you're traveling between New York and DC. I stumbled across this thing called "empty leg flights" last year, and honestly, it's changed how I think about luxury travel.
+
+So what the hell are empty legs anyway? They're basically when private jets need to fly somewhere without passengers – like after dropping someone off or heading to pick up their next client. Instead of flying an empty plane (which seems ridiculous when you think about it), charter companies sell these flights at crazy discounts. We're talking up to 75% off! A friend who works at JetLevel told me these flights are "the travel industry's best-kept secret" – though I guess the secret's out now!
+
+The NYC to DC route is only about 200 miles, which makes it perfect for this kind of hack. You're looking at just an hour of flight time, maybe a bit more if you count all the ground stuff. Way better than the 3+ hour Amtrak ride I usually endure (and don't get me started on the delays).
+
+From my experience, Teterboro is where most people fly out of in the New York area. It's just across the Hudson from Manhattan and feels worlds away from the nightmare that is JFK. On the DC end, Reagan National is super convenient – you can literally see the Washington Monument as you land! Though I've used Dulles too when the timing worked better.
+
+The planes they use vary a lot. I once grabbed a spot on a King Air 350 turboprop for about $1,300 (the normal charter would have been like $5k). My boss occasionally books Citation CJ3s, which normally go for around $10,000 but can be had for as little as $2,500 on empty legs. The price really depends on how desperate they are to fill the flight – I've heard stories of last-minute deals going for 90% off!
+
+What's wild is that you're getting the EXACT same experience as people paying full price. I'll never forget my first private flight – I pulled up 15 minutes before takeoff, the pilot greeted me by name, and my bag went straight from my hand to the plane. No TSA agents, no body scanners, no removing my shoes. Just walked right on board, grabbed a drink from the fully stocked bar, and we were off.
+
+The inside scoop on booking these things: you need to be on the right lists. I personally use evoJets and Jettly, but there are several good brokers out there. Set up alerts for your route – NYC to DC is popular enough that something comes up at least weekly. The catch is you've gotta be flexible and ready to pull the trigger fast. These deals disappear quicker than sample sale Louboutins.
+
+Last December, I had a meeting scheduled in DC on a Thursday. Got an alert Wednesday evening about an empty leg leaving at 7am. Confirmed my booking by 8pm, and by noon the next day, I was already done with my meeting while my colleagues were still on the train down. The client was impressed too – nothing says "I mean business" like showing up on a private jet (they don't need to know you paid less than a first-class commercial ticket).
+
+If you're trying this for the first time, pack light! These smaller jets don't have the same cargo capacity as commercial planes. I learned this the hard way when I had to leave my larger suitcase behind once. Also, while the flight itself is pretty secure, you'll still need ID – it's not completely the Wild West.
+
+Bottom line: if you travel between New York and DC with any regularity and have even a little schedule flexibility, you'd be crazy not to look into empty legs. It's transformed what used to be a travel day into just another meeting that happens to be in another city. And honestly, once you've experienced showing up 10 minutes before your flight and being airborne shortly after, commercial travel feels like absolute torture.
+
+Just don't tell too many people about this, ok? The fewer people competing for these deals, the better for those of us in the know!
+
+*Written March 24, 2025 by someone who's probably on an empty leg flight right now. Prices fluctuate wildly – I've seen everything from $990 to $2,500 for the same route depending on timing and aircraft.*
