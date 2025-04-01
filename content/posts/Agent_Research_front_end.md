@@ -503,7 +503,7 @@ if __name__ == "__main__":
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenManus Local Version</title>
+    <title>AVIGO AI</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -519,7 +519,7 @@ if __name__ == "__main__":
         <div class="main-panel">
             <div id="task-container" class="task-container">
                 <div class="welcome-message">
-                    <h1>Welcome to OpenManus Local Version</h1>
+                    <h1>Welcome to AVIGO AI Assistant</h1>
                     <p>Please enter a task prompt to start a new task</p>
                 </div>
                 <div id="log-container" class="step-container"></div>

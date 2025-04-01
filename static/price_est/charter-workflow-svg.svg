@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" width="1000" height="1200">
+  <!-- 背景 -->
+  <rect width="100%" height="100%" fill="#f9f9f9"/>
+  
+  <!-- 标题 -->
+  <text x="500" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">私人飞机包机预估工作流</text>
+  
+  <!-- 开始阶段 -->
+  <g id="start-section">
+    <rect x="350" y="70" width="300" height="80" rx="10" ry="10" fill="#e3f2fd" stroke="#2196f3" stroke-width="2"/>
+    <text x="500" y="105" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#0d47a1">获取推荐航司和机型</text>
+    <text x="500" y="130" font-family="Arial" font-size="14" text-anchor="middle" fill="#0d47a1">工作流起点</text>
+    
+    <!-- 飞机图标 -->
+    <path d="M430,105 l-15,-5 l0,-3 l25,-10 l0,5 l-5,2 l0,5 l10,3 l0,3 z" fill="#0d47a1"/>
+    <path d="M570,105 l15,-5 l0,-3 l-25,-10 l0,5 l5,2 l0,5 l-10,3 l0,3 z" fill="#0d47a1"/>
+  </g>
+  
+  <!-- 连接线1 -->
+  <path d="M500,150 L500,180" stroke="#666" stroke-width="2" stroke-dasharray="5,2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- 航线信息 -->
+  <rect x="350" y="180" width="300" height="60" rx="10" ry="10" fill="#e3f2fd" stroke="#2196f3" stroke-width="2"/>
+  <text x="500" y="215" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#0d47a1">确定航线信息</text>
+  
+  <!-- 箭头定义 -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    </marker>
+  </defs>
+  
+  <!-- 静态数据库板块 -->
+  <g id="static-data">
+    <rect x="50" y="280" width="350" height="300" rx="10" ry="10" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+    <text x="225" y="310" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#1b5e20">静态数据库</text>
+    
+    <!-- 数据库图标 -->
+    <rect x="120" y="285" width="20" height="25" rx="2" ry="2" fill="#1b5e20"/>
+    <rect x="120" y="290" width="20" height="2" fill="#e8f5e9"/>
+    <rect x="120" y="295" width="20" height="2" fill="#e8f5e9"/>
+    <rect x="120" y="300" width="20" height="2" fill="#e8f5e9"/>
+    
+    <!-- 机型数据库 -->
+    <rect x="70" y="330" width="310" height="40" rx="5" ry="5" fill="#c8e6c9" stroke="#4caf50" stroke-width="1"/>
+    <text x="225" y="355" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">机型数据库</text>
+    
+    <!-- 基地数据库 -->
+    <rect x="70" y="380" width="310" height="40" rx="5" ry="5" fill="#c8e6c9" stroke="#4caf50" stroke-width="1"/>
+    <text x="225" y="405" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">基地数据库</text>
+    
+    <!-- 航线数据 -->
+    <rect x="70" y="430" width="310" height="40" rx="5" ry="5" fill="#c8e6c9" stroke="#4caf50" stroke-width="1"/>
+    <text x="225" y="455" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">航线数据</text>
+    
+    <!-- 航司数据 -->
+    <rect x="70" y="480" width="310" height="40" rx="5" ry="5" fill="#c8e6c9" stroke="#4caf50" stroke-width="1"/>
+    <text x="225" y="505" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">航司数据</text>
+    
+    <!-- 规则库 -->
+    <rect x="70" y="530" width="310" height="40" rx="5" ry="5" fill="#c8e6c9" stroke="#4caf50" stroke-width="1"/>
+    <text x="225" y="555" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">规则库</text>
+  </g>
+  
+  <!-- 动态信息板块 -->
+  <g id="dynamic-data">
+    <rect x="600" y="280" width="350" height="300" rx="10" ry="10" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+    <text x="775" y="310" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#e65100">动态信息（实时查询）</text>
+    
+    <!-- 实时图标 -->
+    <circle cx="720" cy="295" r="10" fill="#e65100"/>
+    <path d="M720,295 L720,288 M720,295 L725,295" stroke="#fff3e0" stroke-width="2"/>
+    
+    <!-- 实时机位查询 -->
+    <rect x="620" y="330" width="310" height="40" rx="5" ry="5" fill="#ffe0b2" stroke="#ff9800" stroke-width="1"/>
+    <text x="775" y="355" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">实时机位查询</text>
+    
+    <!-- 市场供需信息 -->
+    <rect x="620" y="380" width="310" height="40" rx="5" ry="5" fill="#ffe0b2" stroke="#ff9800" stroke-width="1"/>
+    <text x="775" y="405" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">市场供需信息</text>
+    
+    <!-- 特殊航线情况 -->
+    <rect x="620" y="430" width="310" height="40" rx="5" ry="5" fill="#ffe0b2" stroke="#ff9800" stroke-width="1"/>
+    <text x="775" y="455" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">特殊航线情况</text>
+    
+    <!-- 实时费率 -->
+    <rect x="620" y="480" width="310" height="40" rx="5" ry="5" fill="#ffe0b2" stroke="#ff9800" stroke-width="1"/>
+    <text x="775" y="505" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">实时费率</text>
+    
+    <!-- 供需平衡点 -->
+    <rect x="620" y="530" width="310" height="40" rx="5" ry="5" fill="#ffe0b2" stroke="#ff9800" stroke-width="1"/>
+    <text x="775" y="555" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">供需平衡分析</text>
+  </g>
+  
+  <!-- 连接线到行程判断 -->
+  <path d="M500,240 L500,620" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- 行程类型判断 -->
+  <rect x="350" y="620" width="300" height="60" rx="10" ry="10" fill="#e8eaf6" stroke="#3f51b5" stroke-width="2"/>
+  <text x="500" y="655" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a237e">行程类型判断</text>
+  
+  <!-- 行程类型分支 -->
+  <path d="M500,680 L400,720" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M500,680 L500,720" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M500,680 L600,720" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- 行程类型盒子 -->
+  <rect x="350" y="720" width="100" height="50" rx="5" ry="5" fill="#c5cae9" stroke="#3f51b5" stroke-width="1"/>
+  <text x="400" y="750" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a237e">单程</text>
+  
+  <rect x="450" y="720" width="100" height="50" rx="5" ry="5" fill="#c5cae9" stroke="#3f51b5" stroke-width="1"/>
+  <text x="500" y="750" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a237e">往返</text>
+  
+  <rect x="550" y="720" width="100" height="50" rx="5" ry="5" fill="#c5cae9" stroke="#3f51b5" stroke-width="1"/>
+  <text x="600" y="750" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a237e">多程</text>
+  
+  <!-- 连接线到基地判断 -->
+  <path d="M400,770 L400,790 L500,790 L500,810" stroke="#666" stroke-width="2" fill="none"/>
+  <path d="M500,770 L500,790 L500,790 L500,810" stroke="#666" stroke-width="2" fill="none"/>
+  <path d="M600,770 L600,790 L500,790 L500,810" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- 基地判断 -->
+  <rect x="350" y="810" width="300" height="60" rx="10" ry="10" fill="#e8eaf6" stroke="#3f51b5" stroke-width="2"/>
+  <text x="500" y="845" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a237e">基地情况判断</text>
+  
+  <!-- 基地情况分支 -->
+  <path d="M500,870 L400,910" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M500,870 L600,910" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- 基地情况盒子 -->
+  <rect x="330" y="910" width="140" height="50" rx="5" ry="5" fill="#c5cae9" stroke="#3f51b5" stroke-width="1"/>
+  <text x="400" y="940" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a237e">出发地是基地</text>
+  
+  <rect x="530" y="910" width="140" height="50" rx="5" ry="5" fill="#c5cae9" stroke="#3f51b5" stroke-width="1"/>
+  <text x="600" y="940" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a237e">出发地非基地</text>
+  
+  <!-- 连接线到计算逻辑 -->
+  <path d="M400,960 L400,980 L500,980 L500,1000" stroke="#666" stroke-width="2" fill="none"/>
+  <path d="M600,960 L600,980 L500,980 L500,1000" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- 连线从静态数据库到计算逻辑 -->
+  <path d="M225,580 L225,600 L350,600 L350,1020 L380,1020" stroke="#4caf50" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- 连线从动态信息到计算逻辑 -->
+  <path d="M775,580 L775,600 L650,600 L650,1020 L620,1020" stroke="#ff9800" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- 最终计算处理 -->
+  <rect x="350" y="1000" width="300" height="60" rx="10" ry="10" fill="#e1f5fe" stroke="#03a9f4" stroke-width="2"/>
+  <text x="500" y="1035" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#01579b">基础价格计算与特殊规则应用</text>
+  
+  <!-- 连接线到结果 -->
+  <path d="M500,1060 L500,1080" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- 输出结果 -->
+  <rect x="300" y="1080" width="400" height="80" rx="10" ry="10" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2"/>
+  <text x="500" y="1110" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#4a148c">最终预估价格生成</text>
+  <text x="500" y="1140" font-family="Arial" font-size="14" text-anchor="middle" fill="#4a148c">展示TOP推荐方案与价格预估</text>
+  
+  <!-- 数据流说明 -->
+  <g id="legend" transform="translate(50, 1120)">
+    <rect x="0" y="0" width="15" height="5" fill="#4caf50"/>
+    <text x="20" y="5" font-family="Arial" font-size="12" fill="#333">静态数据流</text>
+    
+    <rect x="120" y="0" width="15" height="5" fill="#ff9800"/>
+    <text x="140" y="5" font-family="Arial" font-size="12" fill="#333">动态数据流</text>
+    
+    <rect x="240" y="0" width="15" height="5" fill="#666"/>
+    <text x="260" y="5" font-family="Arial" font-size="12" fill="#333">主流程</text>
+  </g>
+</svg>
