@@ -1,3 +1,4 @@
+``` txt
 # Environmental Impact of Private Jets: Balancing Luxury and Sustainability
 
 ## Executive Summary
@@ -594,4 +595,4 @@ This report synthesizes data from multiple sources to provide a comprehensive as
    - Uncertainty in future regulatory developments
 
 All emissions comparisons use 2023-2024 data unless otherwise specified, and projections are based on announced industry commitments and technological roadmaps as of April 2024.
-
+```
