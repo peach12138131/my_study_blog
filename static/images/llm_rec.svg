@@ -1,0 +1,110 @@
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="1200" height="800" fill="#fefefe"/>
+  
+  <!-- 标题 -->
+  <text x="600" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="300" fill="#2c3e50">
+    大模型在推荐系统中的优势与挑战
+  </text>
+  
+  <!-- 中央核心圆 -->
+  <circle cx="600" cy="400" r="80" fill="#e8f4f8" stroke="#7fb3d3" stroke-width="2"/>
+  <text x="600" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="500" fill="#2c3e50">
+    大模型
+  </text>
+  <text x="600" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="500" fill="#2c3e50">
+    推荐系统
+  </text>
+  
+  <!-- 优势部分 -->
+  <g id="advantages">
+    <!-- 优势标题 -->
+    <rect x="100" y="120" width="200" height="40" rx="20" fill="#e8f5e8" stroke="#81c784" stroke-width="1"/>
+    <text x="200" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="500" fill="#2e7d32">
+      核心优势
+    </text>
+    
+    <!-- 优势1：语义理解 -->
+    <circle cx="150" cy="220" r="35" fill="#f3e5f5" stroke="#ba68c8" stroke-width="2"/>
+    <text x="150" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#6a1b9a">语义</text>
+    <text x="150" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#6a1b9a">理解</text>
+    <text x="250" y="215" font-family="Arial, sans-serif" font-size="14" fill="#4a4a4a">强大的自然语言</text>
+    <text x="250" y="235" font-family="Arial, sans-serif" font-size="14" fill="#4a4a4a">处理能力</text>
+    
+    <!-- 优势2：世界知识 -->
+    <circle cx="150" cy="320" r="35" fill="#e1f5fe" stroke="#4fc3f7" stroke-width="2"/>
+    <text x="150" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#0277bd">世界</text>
+    <text x="150" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#0277bd">知识</text>
+    <text x="250" y="315" font-family="Arial, sans-serif" font-size="14" fill="#4a4a4a">丰富的常识与</text>
+    <text x="250" y="335" font-family="Arial, sans-serif" font-size="14" fill="#4a4a4a">领域知识</text>
+    
+    <!-- 优势3：逻辑推理 -->
+    <circle cx="150" cy="420" r="35" fill="#fff3e0" stroke="#ffb74d" stroke-width="2"/>
+    <text x="150" y="415" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#f57c00">逻辑</text>
+    <text x="150" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#f57c00">推理</text>
+    <text x="250" y="415" font-family="Arial, sans-serif" font-size="14" fill="#4a4a4a">通用推理与</text>
+    <text x="250" y="435" font-family="Arial, sans-serif" font-size="14" fill="#4a4a4a">关联分析</text>
+    
+    <!-- 连接线 -->
+    <path d="M 185 220 Q 300 220 520 380" stroke="#ba68c8" stroke-width="1.5" fill="none" stroke-dasharray="5,5" opacity="0.6"/>
+    <path d="M 185 320 Q 300 320 520 400" stroke="#4fc3f7" stroke-width="1.5" fill="none" stroke-dasharray="5,5" opacity="0.6"/>
+    <path d="M 185 420 Q 300 420 520 420" stroke="#ffb74d" stroke-width="1.5" fill="none" stroke-dasharray="5,5" opacity="0.6"/>
+  </g>
+  
+  <!-- 挑战部分 -->
+  <g id="challenges">
+    <!-- 挑战标题 -->
+    <rect x="900" y="120" width="200" height="40" rx="20" fill="#fce4ec" stroke="#f48fb1" stroke-width="1"/>
+    <text x="1000" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="500" fill="#c2185b">
+      主要挑战
+    </text>
+    
+    <!-- 挑战1：计算成本 -->
+    <circle cx="1050" cy="220" r="35" fill="#ffebee" stroke="#ef5350" stroke-width="2"/>
+    <text x="1050" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#c62828">计算</text>
+    <text x="1050" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#c62828">成本</text>
+    <text x="850" y="215" font-family="Arial, sans-serif" font-size="14" fill="#4a4a4a">模型庞大，推理</text>
+    <text x="850" y="235" font-family="Arial, sans-serif" font-size="14" fill="#4a4a4a">成本高昂</text>
+    
+    <!-- 挑战2：ID对齐 -->
+    <circle cx="1050" cy="320" r="35" fill="#fff8e1" stroke="#ffa726" stroke-width="2"/>
+    <text x="1050" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ef6c00">ID</text>
+    <text x="1050" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#ef6c00">对齐</text>
+    <text x="850" y="315" font-family="Arial, sans-serif" font-size="14" fill="#4a4a4a">物品标识映射</text>
+    <text x="850" y="335" font-family="Arial, sans-serif" font-size="14" fill="#4a4a4a">困难</text>
+    
+    <!-- 挑战3：实时性 -->
+    <circle cx="1050" cy="420" r="35" fill="#f3e5f5" stroke="#ab47bc" stroke-width="2"/>
+    <text x="1050" y="415" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7b1fa2">实时</text>
+    <text x="1050" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7b1fa2">响应</text>
+    <text x="850" y="415" font-family="Arial, sans-serif" font-size="14" fill="#4a4a4a">实时推荐响应</text>
+    <text x="850" y="435" font-family="Arial, sans-serif" font-size="14" fill="#4a4a4a">速度限制</text>
+    
+    <!-- 连接线 -->
+    <path d="M 1015 220 Q 800 220 680 380" stroke="#ef5350" stroke-width="1.5" fill="none" stroke-dasharray="5,5" opacity="0.6"/>
+    <path d="M 1015 320 Q 800 320 680 400" stroke="#ffa726" stroke-width="1.5" fill="none" stroke-dasharray="5,5" opacity="0.6"/>
+    <path d="M 1015 420 Q 800 420 680 420" stroke="#ab47bc" stroke-width="1.5" fill="none" stroke-dasharray="5,5" opacity="0.6"/>
+  </g>
+  
+  <!-- 底部说明 -->
+  <rect x="300" y="720" width="600" height="60" rx="30" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+  <text x="600" y="740" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#6c757d">
+    平衡优势与挑战，探索混合架构解决方案
+  </text>
+  <text x="600" y="760" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#6c757d">
+    Balancing Advantages and Challenges in LLM-based Recommendation Systems
+  </text>
+  
+  <!-- 装饰性元素 -->
+  <defs>
+    <linearGradient id="decorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e3f2fd;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#f3e5f5;stop-opacity:0.3" />
+    </linearGradient>
+  </defs>
+  
+  <circle cx="200" cy="600" r="20" fill="url(#decorGrad)" opacity="0.5"/>
+  <circle cx="1000" cy="600" r="25" fill="url(#decorGrad)" opacity="0.4"/>
+  <circle cx="150" cy="650" r="15" fill="url(#decorGrad)" opacity="0.6"/>
+  <circle cx="1050" cy="650" r="18" fill="url(#decorGrad)" opacity="0.5"/>
+</svg>
